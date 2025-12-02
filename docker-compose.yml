@@ -1,0 +1,15 @@
+services:
+  db:
+    image: mysql:8.0
+    platform: linux/x86_64 # M1/M2 Mac等の互換性のため明記推奨（不要なら削除可）
+    container_name: mysql-container
+    ports:
+      - "13307:3306" # ホスト側:コンテナ側
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword # ルートパスワード
+      MYSQL_DATABASE: mydatabase        # 初回起動時に作成されるDB名
+      MYSQL_USER: myuser                # 作成される一般ユーザー
+      MYSQL_PASSWORD: mypassword        # 一般ユーザーのパスワード
+    volumes:
+      - ./mysql_data:/var/lib/mysql     # データを永続化する設定
+    restart: always
